@@ -7,6 +7,7 @@
   "dependencies": {
     "@11ty/eleventy": "^0.10.0",
     "cssnano": "^4.1.10",
+    "md5": "^2.2.1",
     "postcss": "^7.0.26",
     "postcss-import": "^12.0.1",
     "precss": "^4.0.0",
@@ -14,6 +15,6 @@
   },
   "scripts": {
     "serve": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy"
+    "build": "npx @11ty/eleventy; npx ./bin/assetHashing.js"
   }
 }
