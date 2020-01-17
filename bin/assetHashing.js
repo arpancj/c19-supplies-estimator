@@ -116,20 +116,24 @@ const updateReferencesInCss = (file, assetFilesArray) => {
 
   const urls = css.match(regex);
 
-  urls.forEach(url => {
-    let imagePath = url.slice(4, -1);
-    let hashedPath = filesMap.get(imagePath);
+  if (urls) {
+    urls.forEach(url => {
+      let imagePath = url.slice(4, -1);
+      let hashedPath = filesMap.get(imagePath);
 
-    if (hashedPath) {
-      css = css.replace(imagePath, hashedPath);
-    }
-  });
+      if (hashedPath) {
+        css = css.replace(imagePath, hashedPath);
+      }
+    });
 
-  fs.writeFile(filePath, css, err => {
-    if (err) {
-      console.log(`Error writing file: ${err}`);
-    }
-  });
+    fs.writeFile(filePath, css, err => {
+      if (err) {
+        console.log(`Error writing file: ${err}`);
+      }
+    });
+  }
+
+  return true;
 };
 
 assetFilesArray = getAllFiles(assetsFolder, [
@@ -145,12 +149,18 @@ assetFilesArray.forEach(function(file) {
   addFileHash(file);
 });
 
+console.log(assetFilesArray);
+
 htmlFilesArray = getAllFiles(htmlFolder, ['html']);
 htmlFilesArray.forEach(function(file) {
   updateReferencesinHtml(file, assetFilesArray);
 });
 
+console.log(htmlFilesArray);
+
 cssFilesArray = getAllFiles(htmlFolder, ['css']);
+
+console.log(cssFilesArray);
 cssFilesArray.forEach(function(file) {
   updateReferencesInCss(file, assetFilesArray);
 });
