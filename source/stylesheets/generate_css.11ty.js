@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const postcss = require('postcss');
+const purgecss = require('@fullhuman/postcss-purgecss');
 
 module.exports = class {
   async data() {
@@ -19,6 +20,36 @@ module.exports = class {
       require('precss'),
       require('postcss-import'),
       require('tailwindcss')('./tailwind.config.js'),
+      purgecss({
+        content: [
+          './source/**/*.html',
+          './source/**/*.njk',
+          './source/**/*.md',
+          './source/**/*.liquid'
+        ],
+        whitelist: [
+          'h1',
+          'h2',
+          'h3',
+          'h4',
+          'p',
+          'ul',
+          'ol',
+          'li',
+          'a',
+          'pre',
+          'table',
+          'tr',
+          'td',
+          'th',
+          'tbody',
+          'thead',
+          'blockquote',
+          'dl',
+          'dt',
+          'dd'
+        ]
+      }),
       require('cssnano')
     ])
       .process(rawCss, { from: rawFilepath })

@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "@11ty/eleventy": "^0.10.0",
+    "@fullhuman/postcss-purgecss": "^2.0.5",
     "cheerio": "^1.0.0-rc.3",
     "cssnano": "^4.1.10",
     "md5": "^2.2.1",
