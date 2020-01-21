@@ -18,7 +18,7 @@ module.exports = class {
     return await postcss([
       require('precss'),
       require('postcss-import'),
-      require('tailwindcss'),
+      require('tailwindcss')('./tailwind.config.js'),
       require('cssnano')
     ])
       .process(rawCss, { from: rawFilepath })
