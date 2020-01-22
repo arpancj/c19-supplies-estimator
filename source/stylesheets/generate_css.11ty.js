@@ -48,7 +48,8 @@ module.exports = class {
           'dl',
           'dt',
           'dd'
-        ]
+        ],
+        defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
       }),
       require('cssnano')
     ])
