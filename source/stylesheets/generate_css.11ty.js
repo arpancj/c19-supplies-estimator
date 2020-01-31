@@ -17,7 +17,6 @@ module.exports = class {
 
   async render({ rawCss, rawFilepath }) {
     return await postcss([
-      require('precss'),
       require('postcss-import'),
       require('tailwindcss')('./tailwind.config.js'),
       purgecss({
