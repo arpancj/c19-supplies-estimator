@@ -6,7 +6,8 @@ module.exports = function(config) {
     dir: {
       input: 'source',
       output: 'dist',
-      layouts: '_layouts'
+      layouts: '_layouts',
+      data: '_data'
     }
   };
 };

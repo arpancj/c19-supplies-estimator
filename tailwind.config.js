@@ -1,5 +1,6 @@
 module.exports = {
   theme: {
+    container: true,
     extend: {
       spacing: {
         '72': '18rem',
@@ -11,5 +12,5 @@ module.exports = {
     }
   },
   variants: {},
-  plugins: []
+  plugins: [require('@tailwindcss/ui')]
 };

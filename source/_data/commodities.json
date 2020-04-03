@@ -1,0 +1,12 @@
+[
+  ["Rice", 10, "kilograms", 55],
+  ["Wheat Flour", 10, "kilograms", 50],
+  ["Oil", 3, "litres", 100],
+  ["Sugar", 2, "kilograms", 40],
+  ["Salt", 1, "kilograms", 20],
+  ["Toor Dal", 5, "kilograms", 120],
+  ["Milk Powder", 1, "kilogram", 180],
+  ["Soap", 4, "pieces", 40],
+  ["Cloth Mask", 4, "pieces", 50],
+  ["Rubber Gloves", 2, "pieces", 40]
+]
