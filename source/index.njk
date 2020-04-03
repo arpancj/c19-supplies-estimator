@@ -5,23 +5,21 @@ title: Home
 
 <h1 class="mb-4 text-2xl bold text-blue-900">Essential Comodities Expenses Estimation Tool</h1>
 
-<form action="#" class="w-64 mb-4">
+<form action="#" class="w-48 mb-4">
   <div>
     <label for="email" class="block text-sm font-medium leading-5 text-gray-700">Enter Number of Families</label>
     <div class="mt-1 mb-4 flex rounded-md shadow-sm">
       <button class="-ml-px relative inline-flex text-xl items-center px-4 py-2 border border-gray-300 text-sm  font-medium rounded-l-md text-gray-700 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">-</button>
-      <input id="email" class="relative flex-grow focus-within:z-10 form-input block w-full rounded-none transition ease-in-out duration-150 sm:text-md sm:leading-5" placeholder="John Doe" />
+      <input type="number" min="1" max="100" id="families-input" class="relative text-center flex-grow focus-within:z-10 form-input block w-full rounded-none transition ease-in-out duration-150 sm:text-md sm:leading-5" value="1" />
       <button class="-ml-px relative inline-flex text-xl items-center px-4 py-2 border border-gray-300 text-sm  font-medium rounded-r-md text-gray-700 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">+</button>
     </div>
   </div>
-
-  <button type="button" class="px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition ease-in-out duration-150">
-    Submit
-  </button>
 </form>
 
 <div class="mb-4">
-  <h1 class="mt-16 mb-4 text-2xl bold text-blue-900">Estimated Amount: ₹<span class="amount-total">0</span> for <span class="families-number">0</span> families</h1>
+  <h1 class="mt-16 mb-4 text-2xl bold text-blue-900">
+    Estimated Amount: ₹<span id="amount-total">0</span> for <span id="families-total">0</span> families
+  </h1>
   <p>
     Calculated by multipliying Number of Families with Monthly Estimated Amount for 1 Family.<br/>
     This is an estimated amount, not the actual. Actual amount may slightly vary.
@@ -80,21 +78,21 @@ title: Home
                 <th colspan="4" class="text-left pl-4 font-medium">
                   Total Commodities Cost by Family
                 </th>
-                <th class="text-right pr-6 font-medium">₹2760</th>
+                <th class="text-right pr-6 font-medium">₹2670.00</th>
               </tr>
 
               <tr class="leading-loose border-gray-300 border-b text-sm">
                 <th colspan="4" class="text-left pl-4 font-medium">
                   Contingency & travels (5%):
                 </th>
-                <th class="text-right pr-6 font-medium">₹138</th>
+                <th class="text-right pr-6 font-medium">₹133.50</th>
               </tr>
 
               <tr class="leading-loose">
                 <th colspan="4" class="text-left pl-4 font-medium text-lg">
                   Total Cost for 1 Family
                 </th>
-                <th class="text-right pr-6">₹2898</th>
+                <th class="text-right pr-6">₹2803.50</th>
               </tr>
             </tfoot>
           </tbody>
@@ -103,3 +101,53 @@ title: Home
     </div>
   </div>
 </div>
+
+
+<script>
+
+const commodities = [
+{% for item in commodities %}
+  [
+    "{{item[0]}}",
+    {{item[1]}},
+    "{{item[2]}}",
+    {{item[3]}},
+    {{item[1] * item[3]}}
+  ],
+{% endfor %}
+]
+
+familyCost = function() {
+  let familyCommododitiesCost = 0;
+
+  for (const item of commodities) {
+    familyCommododitiesCost += item[4]
+  }
+
+  let contingencyCost = familyCommododitiesCost*(5/100)
+  return familyCommododitiesCost + contingencyCost;
+}
+
+totalFamilies = function() {
+  let input = document.getElementById('families-input');
+  return parseInt(input.value);
+}
+
+updateValues = function() {
+  let amountElement = document.getElementById('amount-total');
+  let familiesElement = document.getElementById('families-total');
+
+  familiesElement.innerHTML = totalFamilies()
+  amountElement.innerHTML = Math.floor(totalFamilies() * familyCost());
+
+  return false;
+}
+
+let inputElement = document.getElementById('families-input');
+inputElement.addEventListener('change', (event) => {
+  updateValues();
+})
+
+updateValues();
+
+</script>
