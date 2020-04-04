@@ -1,5 +1,8 @@
 const expenses = {
   familiesInput: document.getElementById('families-input'),
+  plusButton: document.getElementById('family-count-plus'),
+  minusButton: document.getElementById('family-count-minus'),
+  resetButton: document.getElementById('family-count-reset'),
   familiesCountElements: document.querySelectorAll('.families-count'),
   familiesTotalElements: document.querySelectorAll('.families-total'),
   contingenciesTotalElements: document.querySelectorAll('.contingencies-total'),
@@ -67,9 +70,47 @@ const expenses = {
     expenses.updateTotalCost();
     expenses.updateCommoditiesCost();
   },
+
+  incrementFamilyCount: () => {
+    let count = expenses.familiesCount();
+
+    if (!Number.isInteger(count)) {
+      count = 1;
+    }
+
+    ++count;
+    expenses.familiesInput.value = count;
+
+    expenses.updateAmounts();
+  },
+
+  decrementFamilyCount: () => {
+    let count = expenses.familiesCount();
+
+    if (!Number.isInteger(count)) {
+      count = 1;
+    }
+
+    if (count > 1) {
+      --count;
+    }
+
+    expenses.familiesInput.value = count;
+
+    expenses.updateAmounts();
+  },
+
+  resetFamilyCount: () => {
+    expenses.familiesInput.value = 1;
+    expenses.updateAmounts();
+  },
 };
 
 expenses.familiesInput.addEventListener('change', expenses.updateAmounts);
+expenses.plusButton.addEventListener('click', expenses.incrementFamilyCount);
+expenses.minusButton.addEventListener('click', expenses.decrementFamilyCount);
+expenses.resetButton.addEventListener('click', expenses.resetFamilyCount);
+
 expenses.updateAmounts();
 
 console.log(expenses.familiesTotalElements);
