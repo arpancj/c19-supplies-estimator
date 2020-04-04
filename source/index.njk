@@ -33,72 +33,74 @@ title: Home
 
   <div class="flex flex-col">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+      <div class="align-middle inline-block min-w-full shadow overflow-hidden rounded-lg border-b border-gray-200">
         <table class="min-w-full">
-          <thead>
-            <tr>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+          <thead class="block sm:table-row-group">
+            <tr class="w-full block sm:table-row">
+              <th class="hidden sm:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                 Item
               </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              <th class="px-6 py-3 w-1/2 block float-left sm:table-cell sm:float-none border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                 Commodities
               </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              <th class="hidden sm:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                 Cost per Unit
               </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              <th class="hidden sm:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                 Quantity
               </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              <th class="px-6 w-1/2 block float-right sm:table-cell sm:float-none py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                 Cost by Family
               </th>
             </tr>
           </thead>
-          <tbody class="bg-white">
+          <tbody class="bg-white block sm:table-row-group">
           {% for item in commodities %}
-            <tr>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
+            <tr class="w-full block clearfix sm:table-row border-b border-gray-200">
+              <td class="hidden sm:table-cell px-6 pt-4 pb-1 whitespace-no-wrap text-right text-sm leading-5 font-medium text-gray-900">
                 {{loop.index}}
               </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+              <td class="font-medium float-left sm:float-none px-6 pt-4 pb-0 sm:pb-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                 {{item[0]}}
               </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 text-gray-500">
-                ₹ <span class="commodity-cost">{{item[3]}}</span>
+              <td class="pl-6 pr-0 sm:pr-6 pb-4 pt-1 sm:pt-4 clear-left float-left sm:float-none whitespace-no-wrap text-right text-sm leading-5 text-gray-500">
+                ₹<span class="commodity-cost">{{item[3]}}</span>
+
+                <span class="sm:hidden">&times;&nbsp;</span>
               </td>
-              <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+              <td class="pr-6 pl-0 sm:pl-0 pb-4 pt-1 sm:pt-4 float-left sm:float-none whitespace-no-wrap text-sm leading-5 text-gray-500">
                 <span class="commodity-quantity" data-amount="{{item[1]}}">{{item[1]}}</span>
                 <span class="commodity-unit">{{item[2]}}</span>
               </td>
-              <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                ₹ <span class="commodity-total-cost" data-amount="{{item[1] * item[3]}}">{{item[1] * item[3]}}</span>
+              <td class="px-6 sm:py-4 float-right sm:float-none whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                ₹<span class="commodity-total-cost" data-amount="{{item[1] * item[3]}}">{{item[1] * item[3]}}</span>
               </td>
             </tr>
             {% endfor %}
-            <tfoot>
-              <tr class="leading-loose border-gray-300 border-b text-sm">
-                <th colspan="4" class="text-left pl-4 font-medium">
-                  Total Commodities Cost by Family
+            <tfoot class="block sm:table-row-group">
+              <tr class="block clearfix sm:table-row leading-loose border-gray-300 border-b text-sm">
+                <th colspan="4" class="float-left sm:float-none text-left pl-4 font-medium">
+                  Total Commodities cost by Family
                 </th>
-                <th class="text-right pr-6 font-medium" >
+                <th class="float-right sm:float-none text-right pr-6 font-medium" >
                   ₹<span class="families-total"></span>
                 </th>
               </tr>
 
-              <tr class="leading-loose border-gray-300 border-b text-sm">
-                <th colspan="4" class="text-left pl-4 font-medium">
+              <tr class="block clearfix sm:table-row leading-loose border-gray-300 border-b text-sm">
+                <th colspan="4" class="float-left sm:float-none text-left pl-4 font-medium">
                   Contingency & travels (5%):
                 </th>
-                <th class="text-right pr-6 font-medium" >
+                <th class="float-right sm:float-none text-right pr-6 font-medium" >
                   ₹<span class="contingencies-total"></span>
                 </th>
               </tr>
 
-              <tr class="leading-loose">
-                <th colspan="4" class="text-left pl-4 font-medium text-lg">
+              <tr class="block clearfix sm:table-row leading-loose">
+                <th colspan="4" class="float-left sm:float-none text-left pl-4 font-medium text-lg">
                   Total Cost for <span class="families-count">0</span> families
                 </th>
-                <th class="text-right pr-6 font-medium" >
+                <th class="float-right sm:float-none text-right pr-6 font-medium" >
                   ₹<span class="amount-total"></span>
                 </th>
               </tr>
